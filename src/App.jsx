@@ -1,4 +1,4 @@
-import Signup from "./signup"
+import Signup from './Signup'
 
 const App = () => {
   return (
