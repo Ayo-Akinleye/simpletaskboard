@@ -37,10 +37,6 @@ const Signup = () => {
             // return;
         }
 
-        if (userData.email === storedUser.email) {
-            setError("Email already assigned to an account!!. ")
-        }
-
         const userData = {
             fullname,
             email: cleanEmail,
