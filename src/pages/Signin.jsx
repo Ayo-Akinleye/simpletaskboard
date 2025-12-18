@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import SimpleButton from '../Components/SubmitButton';
+import RememberMe from '../Components/RememberMe';
 import { useNavigate, Link } from 'react-router-dom';
 
 const Signin = () => {
@@ -39,50 +40,58 @@ const Signin = () => {
 
   return (
     <div>
-      <div className='border-2 rounded-md flex flex-col gap-2 p-2'>
+      <div className='flex w-screen min-h-screen'>
+        <div className='flex flex-1 flex-col items-center justify-center'>
+          <h1 className='text-center text-4xl font-serif font-extrabold m-2'>
+            Sign in
+          </h1>
 
-        <h1 className='text-center text-2xl font-serif font-extrabold'>
-          Sign in
-        </h1>
+          <form className='flex flex-col gap-3 m-2 items-center' onSubmit={handleSubmit}>
 
-        <form className='flex flex-col gap-3 m-2' onSubmit={handleSubmit}>
+            <div className='flex gap-1'>
+              <input required
+                type='email'
+                placeholder='Email address'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className='bg-gray-200 h-[35px] w-[300px] p-2 placeholder-gray-400                            focus:outline-none focus:border-black'
+              />
+            </div>
 
-          <div className='flex gap-1'>
-            <label className="font-bold">Email address:</label>
-            <input required
-              type='email'
-              placeholder='e.g johndoe@gmail.com'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className='border border-gray-100 rounded px-2 placeholder-gray-400
+            <div className='flex gap-1'>
+              <input required
+                type='password'
+                placeholder='Password'
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  if (error) setError("");
+                }}
+                className='bg-gray-200 h-[35px] w-[300px] p-2 placeholder-gray-400
                                         focus:outline-none focus:border-black'
-            />
-          </div>
+              />
+            </div>
 
-          <div className='flex gap-1'>
-            <label className="font-bold">Password:</label>
-            <input required
-              type='password'
-              placeholder='********'
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-                if (error) setError("");
-              }}
-              className='border border-gray-100 rounded px-2 placeholder-gray-400
-                                        focus:outline-none focus:border-black'
-            />
-          </div>
+            {error ? <p className="text-red-500 text-sm">{error}</p> : null}
 
-          {error ? <p className="text-red-500 text-sm">{error}</p> : null}
+            <RememberMe />
+            <SimpleButton text="Sign in" type='submit' />
+          </form>
 
-          <SimpleButton text="Sign in" type='submit' />
-        </form>
+
+          <a href='#' className='text-sm text-pink-700 hover:underline mt-2'>Forgot password?</a>
+        </div>
+
+        <div className='flex flex-1 flex-col bg-pink-700 items-center justify-center'>
+          <h1 className='text-white text-4xl font-bold'>Hello, Friend👋</h1>
+          <h1 className='text-white text-xl mt-4'>Enter your details to pick up where you left off.</h1>
+          <p className='text-white mt-2'>
+            Don't have an account yet?
+            <Link to="/signup" className='text-blue-500 underline cursor-pointer'>Sign up</Link>
+          </p>
+        </div>
+
       </div>
-      <p className='text-center mt-2'>
-        Don't have an account yet?
-        <Link to="/signup" className='text-blue-500 underline cursor-pointer'>Sign up</Link>
-      </p>
     </div>
 
   )

@@ -59,77 +59,83 @@ const Signup = () => {
 
     return (
         <div>
-            <div className='border-2 rounded-md flex flex-col gap-2 p-2'>
+            <div className='flex w-screen min-h-screen'>
+                <div className='flex flex-1 flex-col bg-pink-700 items-center justify-center'>
+                    <h1 className='text-white text-4xl font-bold'>SimpToDo♧</h1>
+                    <h1 className='text-white mt-3'>Organize your tasks. Clear your mind. Get more done.</h1>
+                </div>
 
-                <h1 className='text-center text-2xl font-serif font-extrabold'>
-                    Sign up
-                </h1>
+                <div className="flex flex-col flex-1 items-center justify-center">
+                    <div className=' w-[380px] rounded-md flex flex-col gap-3 p-2'>
 
-                <form
-                    onSubmit={handleSubmit}
-                    className='flex flex-col gap-3 m-2'
-                >
-                    <div className='flex gap-1'>
-                        <label className='font-bold'>Fullname:</label>
-                        <input required
-                            type='text'
-                            placeholder='e.g John Doe'
-                            value={fullname}
-                            onChange={(e) => setFullname(e.target.value)}
-                            className='border border-gray-100 rounded px-2 placeholder-gray-400
+                        <h1 className='text-center text-4xl font-serif font-extrabold'>
+                            Sign up
+                        </h1>
+
+                        <form
+                            onSubmit={handleSubmit}
+                            className='flex flex-col gap-4 m-2 items-center'
+                        >
+                            <div className='flex gap-1'>
+                                <input required
+                                    type='text'
+                                    placeholder='Fullname'
+                                    value={fullname}
+                                    onChange={(e) => setFullname(e.target.value)}
+                                    className='bg-gray-200 h-[35px] w-[300px] p-2 placeholder-gray-400
                                         focus:outline-none focus:border-black'
-                        />
-                    </div>
+                                />
+                            </div>
 
-                    <div className='flex gap-1'>
-                        <label className="font-bold">Email address:</label>
-                        <input required
-                            type='email'
-                            placeholder='e.g johndoe@gmail.com'
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className='border border-gray-100 rounded px-2 placeholder-gray-400
+                            <div className='flex gap-1'>
+                                <input required
+                                    type='email'
+                                    placeholder='Email address'
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className='bg-gray-200 h-[35px] w-[300px] p-2 placeholder-gray-400
                                         focus:outline-none focus:border-black'
-                        />
-                    </div>
+                                />
+                            </div>
 
-                    <div className='flex gap-1'>
-                        <label className="font-bold">Password:</label>
-                        <input required
-                            type='password'
-                            placeholder='********'
-                            value={password}
-                            onChange={(e) => {
-                                setPassword(e.target.value);
-                                if (error) setError("");
-                            }}
-                            className='border border-gray-100 rounded px-2 placeholder-gray-400
+                            <div className='flex gap-1'>
+                                <input required
+                                    type='password'
+                                    placeholder='Password'
+                                    value={password}
+                                    onChange={(e) => {
+                                        setPassword(e.target.value);
+                                        if (error) setError("");
+                                    }}
+                                    className='bg-gray-200 h-[35px] w-[300px] p-2 placeholder-gray-400
                                         focus:outline-none focus:border-black'
-                        />
-                    </div>
+                                />
+                            </div>
 
-                    <div className='flex gap-1'>
-                        <label className="font-bold">Confirm Password:</label>
-                        <input required
-                            type='password'
-                            placeholder='********'
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            className='border border-gray-100 rounded px-2 placeholder-gray-400
+                            <div className='flex gap-1'>
+                                <input required
+                                    type='password'
+                                    placeholder='Confirm password'
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                    className='bg-gray-200 h-[35px] w-[300px] p-2 placeholder-gray-400
                                         focus:outline-none focus:border-black'
-                        />
+                                />
+                            </div>
+
+                            {error ? <p className="text-red-500 text-sm">{error}</p> : null}
+
+                            <SubmitButton text="Sign up" type="submit" />
+                        </form>
                     </div>
-
-                    {error ? <p className="text-red-500 text-sm">{error}</p> : null}
-
-                    <SubmitButton text="Sign up" type="submit" />
-                </form>
+                    <p className='text-center mt-2'>
+                        Already have an account?
+                        <Link to="/signin" className=' text-pink-700 underline cursor-pointer'> Sign in</Link>
+                    </p>
+                </div>
             </div>
-            <p className='text-center mt-2'>
-                Already have an account?
-                <Link to="/signin" className=' text-blue-500 underline cursor-pointer'>Sign in</Link>
-            </p>
         </div>
+
     )
 }
 
