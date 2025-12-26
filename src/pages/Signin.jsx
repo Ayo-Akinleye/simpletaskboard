@@ -33,8 +33,8 @@ const Signin = () => {
     }
 
     setError("")
-    alert("Log in successful. You'll be directed to Dashboard.")
-    navigate("/dashboard")
+    alert("Log in successful. You'll be directed to your Taskboard.")
+    navigate("/taskboard")
   };
 
 
