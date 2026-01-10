@@ -33,9 +33,6 @@ const Signup = () => {
                 setError("Email already assigned to an account!!. ");
                 return;
             }
-
-            // setError("Account already exists. Kindly sign in. ");
-            // return;
         }
 
         const userData = {
@@ -59,7 +56,7 @@ const Signup = () => {
 
     return (
         <div>
-            <div className='flex w-screen min-h-screen'>
+            <div className='flex flex-row w-screen min-h-screen'>
                 <div className='flex flex-1 flex-col bg-pink-700 items-center justify-center'>
                     <h1 className='text-white text-4xl font-bold'>SimpToDo♧</h1>
                     <h1 className='text-white mt-3'>Organize your tasks. Clear your mind. Get more done.</h1>

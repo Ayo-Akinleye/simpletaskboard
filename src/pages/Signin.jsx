@@ -34,13 +34,13 @@ const Signin = () => {
 
     setError("")
     alert("Log in successful. You'll be directed to your Taskboard.")
-    navigate("/taskboard")
+    navigate("/taskboard", { replace: true })
   };
 
 
   return (
     <div>
-      <div className='flex w-screen min-h-screen'>
+      <div className='flex flex-row w-screen min-h-screen'>
         <div className='flex flex-1 flex-col items-center justify-center'>
           <h1 className='text-center text-4xl font-serif font-extrabold m-2'>
             Sign in
