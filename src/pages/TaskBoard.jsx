@@ -1,29 +1,33 @@
 import { useState, useEffect } from 'react';
 import Board from '../Components/Board';
-import Input from "../Components/Input";
+import TaskboardInput from '../Components/TaskboardInput';
 import { LogOut } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 
 const TaskBoard = () => {
 
+  const [user] = useState(() => {
+    const storedUser = localStorage.getItem("loggedInUser");
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
+  const taskKey = `taskList_${user?.email}`;
+
+
   const [taskList, setTaskList] = useState(() => {
-    const savedTasks = localStorage.getItem("taskList");
+    const savedTasks = localStorage.getItem("taskKey");
     return savedTasks ? JSON.parse(savedTasks) : []
   });
 
   useEffect(() => {
-    localStorage.setItem("taskList", JSON.stringify(taskList));
+    localStorage.setItem(taskKey, JSON.stringify(taskList));
   }, [taskList]);
 
-  const [user] = useState(() => {
-    const storedUser = localStorage.getItem("user");
-    return storedUser ? JSON.parse(storedUser) : null;
-  });
+
   const navigate = useNavigate()
 
   const handleLogout = () => {
     alert("Are you sure you want to log out?")
-    localStorage.removeItem("user");
+    localStorage.removeItem("loggedInUser");
     navigate("/signin", { replace: true });
   }
 
@@ -43,7 +47,7 @@ const TaskBoard = () => {
 
         </div>
 
-        <Input taskList={taskList} setTaskList={setTaskList} />
+        <TaskboardInput taskList={taskList} setTaskList={setTaskList} />
       </div>
 
       <div className='flex flex-col gap-4 sm:grid sm:grid-cols-3 px-4 sm:px-8 md:px-10 lg:px-12'>

@@ -13,27 +13,12 @@ const App = () => {
     <div>
       <BrowserRouter>
         <Routes>
-
-          <Route index element={<Navigate to="/signup" replace />} />
-
-          <Route path='/signup' element={
-            <PublicRoute>
-              <Signup />
-            </PublicRoute>
-          } />
-
-          <Route path='/signin' element={
-            <PublicRoute>
-              <Signin />
-            </PublicRoute>
-          } />
-
-          <Route path='/taskboard' element={
-            <ProtectedRoute>
-              <TaskBoard />
-            </ProtectedRoute>
-          } />
-
+          <Route path="/">
+            <Route index element={<Signin />} />
+            <Route path="signin" element={<Signin />} />
+            <Route path="signup" element={<Signup />} />
+            <Route path="taskboard" element={<TaskBoard />} />
+          </Route>
           <Route path='*' element={<NoPage />} />
 
         </Routes>

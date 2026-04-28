@@ -1,8 +1,17 @@
 import { useState } from 'react';
 import SubmitButton from '../Components/SubmitButton';
 import { useNavigate, Link } from 'react-router-dom';
+import Form from '../Components/Form';
 
 const Signup = () => {
+
+    const SignupFields = [
+        { name: 'fullname', type: "text", placeholder: 'Fullname' },
+        { name: 'email', type: "email", placeholder: 'Email Address' },
+        { name: 'password', type: "password", placeholder: 'Password' },
+        { name: 'confirm password', type: "password", placeholder: 'Confirm Password' },
+    ]
+
     const [fullname, setFullname] = useState("")
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -11,13 +20,9 @@ const Signup = () => {
 
     const navigate = useNavigate()
 
+    // Function to handle sign up form
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        if (!email.includes("@")) {
-            setError("Invalid email!");
-            return;
-        }
 
         if (password !== confirmPassword) {
             setError("passwords do not match")
@@ -25,23 +30,20 @@ const Signup = () => {
         }
 
         // Localstorage
-        const storedUser = JSON.parse(localStorage.getItem("user"));
+        const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
         const cleanEmail = email.trim().toLowerCase();
 
-        if (storedUser) {
-            if (cleanEmail === storedUser.email) {
-                setError("Email already assigned to an account!!. ");
-                return;
-            }
+        const emailExists = existingUsers.some(user => user.email === cleanEmail);
+        // .some() checks if the email already exists across all users
+
+        if (emailExists) {
+            setError("Email already assigned to an account!");
         }
 
-        const userData = {
-            fullname,
-            email: cleanEmail,
-            password,
-        };
-
-        localStorage.setItem("user", JSON.stringify(userData));
+        //   Add new user to array
+        const newUser = { fullname, email: cleanEmail, password };
+        existingUsers.push(newUser);
+        localStorage.setItem("users", JSON.stringify(existingUsers));
 
 
         // After successful 
@@ -53,83 +55,40 @@ const Signup = () => {
         navigate('/signin')
     };
 
-
     return (
         <div>
             <div className='flex flex-row w-screen min-h-screen'>
-                <div className='flex flex-1 flex-col bg-pink-700 items-center justify-center'>
+                {/* Left welcome panel - hidden on mobile */}
+                <div className='hidden lg:flex flex-1 flex-col bg-pink-700 items-center justify-center'>
                     <h1 className='text-white text-4xl font-bold'>SimpToDo♧</h1>
                     <h1 className='text-white mt-3'>Organize your tasks. Clear your mind. Get more done.</h1>
                 </div>
 
-                <div className="flex flex-col flex-1 items-center justify-center">
-                    <div className=' w-[380px] rounded-md flex flex-col gap-3 p-2'>
+                {/* Right panel, visible across screens */}
+                <div className="flex flex-col flex-1 p-10 min-h-screen">
 
-                        <h1 className='text-center text-4xl font-serif font-extrabold'>
-                            Sign up
-                        </h1>
+                    {/* Logo */}
+                    <h1 className='text-pink-700 text-2xl font-bold'>SimpToDo♧</h1>
 
-                        <form
-                            onSubmit={handleSubmit}
-                            className='flex flex-col gap-4 m-2 items-center'
-                        >
-                            <div className='flex gap-1'>
-                                <input required
-                                    type='text'
-                                    placeholder='Fullname'
-                                    value={fullname}
-                                    onChange={(e) => setFullname(e.target.value)}
-                                    className='bg-gray-200 h-[35px] w-[300px] p-2 placeholder-gray-400
-                                        focus:outline-none focus:border-black'
-                                />
-                            </div>
-
-                            <div className='flex gap-1'>
-                                <input required
-                                    type='email'
-                                    placeholder='Email address'
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    className='bg-gray-200 h-[35px] w-[300px] p-2 placeholder-gray-400
-                                        focus:outline-none focus:border-black'
-                                />
-                            </div>
-
-                            <div className='flex gap-1'>
-                                <input required
-                                    type='password'
-                                    placeholder='Password'
-                                    value={password}
-                                    onChange={(e) => {
-                                        setPassword(e.target.value);
-                                        if (error) setError("");
-                                    }}
-                                    className='bg-gray-200 h-[35px] w-[300px] p-2 placeholder-gray-400
-                                        focus:outline-none focus:border-black'
-                                />
-                            </div>
-
-                            <div className='flex gap-1'>
-                                <input required
-                                    type='password'
-                                    placeholder='Confirm password'
-                                    value={confirmPassword}
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
-                                    className='bg-gray-200 h-[35px] w-[300px] p-2 placeholder-gray-400
-                                        focus:outline-none focus:border-black'
-                                />
-                            </div>
-
-                            {error ? <p className="text-red-500 text-sm">{error}</p> : null}
-
-                            <SubmitButton text="Sign up" type="submit" />
-                        </form>
+                    {/* form + extra information */}
+                    <div className='flex flex-1 flex-col items-center justify-center'>
+                        <Form
+                            title="Sign up"
+                            fields={SignupFields}
+                            buttonText='Sign up'
+                            handleSubmit={handleSubmit}
+                            error={error}
+                            extras={
+                                <p className='text-center mt-2'>
+                                    Already have an account?
+                                    <Link to="/signin" className=' text-pink-700 underline cursor-pointer'> Sign in</Link>
+                                </p>
+                            }
+                        />
                     </div>
-                    <p className='text-center mt-2'>
-                        Already have an account?
-                        <Link to="/signin" className=' text-pink-700 underline cursor-pointer'> Sign in</Link>
-                    </p>
+
                 </div>
+
             </div>
         </div>
 

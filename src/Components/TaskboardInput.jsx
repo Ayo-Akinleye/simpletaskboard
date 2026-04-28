@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SubmitButton from "../Components/SubmitButton";
+import SubmitButton from "./SubmitButton";
 
 const Input = ({ taskList, setTaskList }) => {
   const [input, setInput] = useState("")
