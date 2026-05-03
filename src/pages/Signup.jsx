@@ -5,13 +5,6 @@ import Form from '../Components/Form';
 
 const Signup = () => {
 
-    const SignupFields = [
-        { name: 'fullname', type: "text", placeholder: 'Fullname' },
-        { name: 'email', type: "email", placeholder: 'Email Address' },
-        { name: 'password', type: "password", placeholder: 'Password' },
-        { name: 'confirm password', type: "password", placeholder: 'Confirm Password' },
-    ]
-
     const [fullname, setFullname] = useState("")
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -20,14 +13,16 @@ const Signup = () => {
 
     const navigate = useNavigate()
 
+    const SignupFields = [
+        { name: 'fullname', type: "text", placeholder: 'Fullname', value: fullname, onChange: (e) => setFullname(e.target.value) },
+        { name: 'email', type: "email", placeholder: 'Email Address', value: email, onChange: (e) => setEmail(e.target.value) },
+        { name: 'password', type: "password", placeholder: 'Password', value: password, onChange: (e) => setPassword(e.target.value) },
+        { name: 'confirm password', type: "password", placeholder: 'Confirm Password', value: confirmPassword, onChange: (e) => setConfirmPassword(e.target.value) },
+    ]
+
     // Function to handle sign up form
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        if (password !== confirmPassword) {
-            setError("passwords do not match")
-            return;
-        }
 
         // Localstorage
         const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
@@ -36,8 +31,14 @@ const Signup = () => {
         const emailExists = existingUsers.some(user => user.email === cleanEmail);
         // .some() checks if the email already exists across all users
 
+        if (password !== confirmPassword) {
+            setError("passwords do not match")
+            return;
+        }
+
         if (emailExists) {
             setError("Email already assigned to an account!");
+            return;
         }
 
         //   Add new user to array

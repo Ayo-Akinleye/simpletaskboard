@@ -4,6 +4,7 @@ import SubmitButton from "./SubmitButton";
 const Form = ({ title, fields, buttonText, handleSubmit, extras, error, classname = "" }) => {
     return (
         <form
+            id="authForms"
             className={`flex flex-col gap-4 m-2 items-center justify-center w-full max-w-[380px] p-2 ${classname}`}
             onSubmit={handleSubmit}
         >
@@ -14,6 +15,7 @@ const Form = ({ title, fields, buttonText, handleSubmit, extras, error, classnam
             {fields.map((field) => (
                 <FormInput
                     key={field.name}
+                    name={field.name}
                     type={field.type}
                     placeholder={field.placeholder}
                     value={field.value}
@@ -24,7 +26,7 @@ const Form = ({ title, fields, buttonText, handleSubmit, extras, error, classnam
 
             {error ? <p className="text-red-500 text-sm">{error}</p> : null}
 
-            <SubmitButton text={buttonText} type="submit" />
+            <SubmitButton text={buttonText} />
 
             <>
                 {extras && extras}

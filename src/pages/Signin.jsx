@@ -4,16 +4,16 @@ import { useNavigate, Link } from 'react-router-dom';
 import Form from '../Components/Form';
 
 const Signin = () => {
-
-  const SigninFields = [
-    { name: 'email', type: "email", placeholder: 'Email Address' },
-    { name: 'password', type: "password", placeholder: 'Password' }
-  ]
-
-  const [email ] = useState("");
-  const [password ] = useState("");
+  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate()
+
+  const SigninFields = [
+    { name: 'email', type: "email", placeholder: 'Email Address', value: email, onChange: (e) => setEmail(e.target.value) },
+    { name: 'password', type: "password", placeholder: 'Password', value: password, onChange: (e) => setPassword(e.target.value) }
+  ]
 
   // function to handle sign in form
   const handleSubmit = (e) => {
@@ -36,7 +36,8 @@ const Signin = () => {
 
     setError("")
     alert("Log in successful. You'll be directed to your Taskboard.")
-    localStorage.setItem("loggedInUser", JSON.stringify({ fullname: foundUser.fullname, email: foundUser.email}));
+
+    localStorage.setItem("loggedInUser", JSON.stringify({ fullname: foundUser.fullname, email: foundUser.email }));
     navigate("/taskboard", { replace: true })
   };
 

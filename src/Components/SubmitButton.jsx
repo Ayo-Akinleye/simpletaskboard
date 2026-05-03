@@ -1,4 +1,4 @@
-export default function SubmitButton({ text, type = "button", className = "", onClick }) {
+export default function SubmitButton({ text, type = "submit", className = "", onClick }) {
 
     return (
         <button

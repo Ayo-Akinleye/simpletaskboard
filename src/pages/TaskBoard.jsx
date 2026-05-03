@@ -14,13 +14,13 @@ const TaskBoard = () => {
 
 
   const [taskList, setTaskList] = useState(() => {
-    const savedTasks = localStorage.getItem("taskKey");
+    const savedTasks = localStorage.getItem(taskKey);
     return savedTasks ? JSON.parse(savedTasks) : []
   });
 
   useEffect(() => {
     localStorage.setItem(taskKey, JSON.stringify(taskList));
-  }, [taskList]);
+  }, [taskList, taskKey]);
 
 
   const navigate = useNavigate()
