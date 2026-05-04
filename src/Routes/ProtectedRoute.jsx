@@ -1,9 +1,9 @@
 import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
-    const user = localStorage.getItem("user");
+    const loggedInUser = localStorage.getItem("loggedInUser");
 
-    if (!user) {
+    if (!loggedInUser) {
         return <Navigate to="/signin" replace />;
     }
 

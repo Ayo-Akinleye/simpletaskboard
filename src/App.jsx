@@ -17,7 +17,11 @@ const App = () => {
             <Route index element={<Signin />} />
             <Route path="signin" element={<Signin />} />
             <Route path="signup" element={<Signup />} />
-            <Route path="taskboard" element={<TaskBoard />} />
+            <Route path="taskboard" element={
+              <ProtectedRoute>
+                <TaskBoard />
+              </ProtectedRoute>
+            } />
           </Route>
           <Route path='*' element={<NoPage />} />
 

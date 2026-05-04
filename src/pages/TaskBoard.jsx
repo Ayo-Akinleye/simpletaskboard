@@ -6,29 +6,35 @@ import { useNavigate } from 'react-router-dom';
 
 const TaskBoard = () => {
 
+  // getting the logged-in user from localStorage
   const [user] = useState(() => {
     const storedUser = localStorage.getItem("loggedInUser");
     return storedUser ? JSON.parse(storedUser) : null;
   });
-  const taskKey = `taskList_${user?.email}`;
 
+  // unique key for storing tasks in localStorage
+  const taskKey = `taskList_${user?.email || "guest"}`;
 
   const [taskList, setTaskList] = useState(() => {
-    const savedTasks = localStorage.getItem(taskKey);
+    if (!user?.email) return [];   // if no user - return empty array(no tasks)
+    const savedTasks = localStorage.getItem(`taskList_${user.email}`);
     return savedTasks ? JSON.parse(savedTasks) : []
   });
 
   useEffect(() => {
+    if (!user?.email) return;
     localStorage.setItem(taskKey, JSON.stringify(taskList));
-  }, [taskList, taskKey]);
+  }, [taskList, taskKey, user]);
 
 
   const navigate = useNavigate()
 
   const handleLogout = () => {
-    alert("Are you sure you want to log out?")
-    localStorage.removeItem("loggedInUser");
-    navigate("/signin", { replace: true });
+    if (window.confirm("Are you sure you want to log out?")) {
+      localStorage.removeItem("loggedInUser");
+      navigate("/signin", { replace: true });
+      // replace: true means user can't go back to the previous page using the back button.
+    }
   }
 
   return (
