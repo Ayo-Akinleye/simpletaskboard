@@ -1,12 +1,21 @@
-import { Link } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const NoPage = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <div>
-      <h1>Error: Page Not Found.</h1>
-      <p>Return to 
-        <Link to="/signin" className='text-pink-700 underline cursor-pointer'> Sign in</Link> page
+      <h1>404 – Page Not Found</h1>
+      <p>
+        <span className='font-semibold'>"{location.pathname}"</span>  does not exist.
       </p>
+      <button
+        onClick={() => navigate('/')}
+        className='underline cursor-pointer'
+      >
+        Go Home
+      </button>
     </div>
   )
 }
