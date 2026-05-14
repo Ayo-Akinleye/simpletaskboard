@@ -61,7 +61,7 @@ const TaskBoard = () => {
       </div>
 
       {/* actual tasks display */}
-      <div className='flex flex-col gap-4 sm:grid sm:grid-cols-3 px-4 sm:px-8 md:px-10 lg:px-12 bg-red-500'>
+      <div className='flex flex-col gap-4 sm:grid sm:grid-cols-3 px-4 sm:px-8 md:px-10 lg:px-12'>
         {taskList.map((task, index) =>
           <Board key={index} task={task} index={index} taskList={taskList} setTaskList={setTaskList}
           />
